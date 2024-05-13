@@ -8,10 +8,10 @@ Project explaination:
 
 3. # Features
 
-   *User-friendly interface for inputting data.
-   *Database framework for organizing different categories of data.
-   *Dashboard generation for comparing and showcasing data.
-   *Customizable dashboard views based on user preferences.
+   - User-friendly interface for inputting data.
+   - Database framework for organizing different categories of data.
+   - Dashboard generation for comparing and showcasing data.
+   - Customizable dashboard views based on user preferences.
 
 4. # Demo
 5. # Installation

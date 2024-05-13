@@ -1,45 +1,47 @@
 Project explaination:
 
-1. # Project Title
+### 1. Project Title
 
-   Dashboard Data Management System - Sales
+Dashboard Data Management System - Sales
 
-2. # Description
+### 2. Description
 
-   This project aims to provide a user-friendly interface for inputting and managing various types of data and generating insightful dashboards for analysis and decision-making.
+This project aims to provide a user-friendly interface for inputting and managing various types of data and generating insightful dashboards for analysis and decision-making.
 
-3. # Features
+### 3. Features
 
-   - User-friendly interface for inputting data.
-   - Database framework for organizing different categories of data.
-   - Dashboard generation for comparing and showcasing data.
-   - Customizable dashboard views based on user preferences.
+- User-friendly interface for inputting data.
+- Database framework for organizing different categories of data.
+- Dashboard generation for comparing and showcasing data.
+- Customizable dashboard views based on user preferences.
 
-4. # Demo
+### 4. Demo
 
 Will add screenshots of the application interface and generated dashboard.
 
-5. # Installation
+### 5. Installation
 
-   Provide step-by-step instructions on how to clone the repository and set up the project locally.
-   List any prerequisites or dependencies required (e.g., Node.js, npm, database software).
+Provide step-by-step instructions on how to clone the repository and set up the project locally.
+List any prerequisites or dependencies required (e.g., Node.js, npm, database software).
 
-6. # Usage
+### 6. Usage
 
 Explain how to navigate the interface and input data into the system.
 Describe how to generate and customize dashboards based on different data categories.
 Provide examples or screenshots demonstrating the usage of various features.
 
-7. # Technologies Used
+### 7. Technologies Used
 
-   List the technologies, frameworks, and libraries used in your project. React for the front end and Node.js for the backend, and mySQL for the database.
+List the technologies, frameworks, and libraries used in your project. React for the front end and Node.js for the backend, and mySQL for the database.
 
-8. # Architecture
+### 8. Architecture
 
-   Provide an overview of the project's architecture, including how the front end communicates with the backend and database.
+Provide an overview of the project's architecture, including how the front end communicates with the backend and database.
 
-9. # Roadmap
-   Outline the future development plans for your project, including upcoming features or improvements.
+### 9 . Roadmap
+
+Outline the future development plans for your project, including upcoming features or improvements.
+The waether section of the table will not be inputted manually but it will use an API to fetch the weather in the particular day. It will save this information.
 
 ### MySQL Database Framework
 

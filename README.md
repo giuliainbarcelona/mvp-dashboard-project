@@ -1,5 +1,3 @@
-Project explaination:
-
 ### 1. Project Title
 
 Dashboard Data Management System - Sales
@@ -63,6 +61,6 @@ I have designed the MySQL database to efficiently manage and organize various ca
 | home     | BIGINT        | Sales related to home products \*\*    |
 | weather  | VARCHAR(255)  | Weather condition on the day           |
 
-\* The initial date is given in the american format.
+\* The initial date is given in the american format: YYYY-MM-DD
 
 \*\* Men, women, kids, clothing, sport, home are the categories

@@ -1,42 +1,51 @@
-import React from "react";
-import { format } from "date-fns";
+import * as React from "react";
+import { format } from "date-fns"; // Import the format function
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 function SalesTable({ salesRecord }) {
   return (
     <div>
       <h2>Sales Data Table</h2>
-      <table className="grid-container">
-        <thead>
-          <tr>
-            <th>Day</th>
-            <th>Income</th>
-            <th>Men</th>
-            <th>Women</th>
-            <th>Kids</th>
-            <th>Clothing</th>
-            <th>Sport</th>
-            <th>Home</th>
-            <th>Weather</th>
-          </tr>
-        </thead>
-        <tbody>
-          {salesRecord.map((sale) => (
-            <tr key={sale.id}>
-              <td className="grid-item">
-                {format(new Date(sale.day), "dd/MM/yyyy")}
-              </td>
-              <td className="grid-item">{sale.income}</td>
-              <td className="grid-item">{sale.men}</td>
-              <td className="grid-item">{sale.women}</td>
-              <td className="grid-item">{sale.kids}</td>
-              <td className="grid-item">{sale.clothing}</td>
-              <td className="grid-item">{sale.sport}</td>
-              <td className="grid-item">{sale.home}</td>
-              <td className="grid-item">{sale.weather}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Day 🗓️</TableCell>
+              <TableCell>Income 💶</TableCell>
+              <TableCell>Men 👨🏼</TableCell>
+              <TableCell>Women 🙋🏼‍♀️</TableCell>
+              <TableCell>Kids 👶🏻</TableCell>
+              <TableCell>Clothing 👗</TableCell>
+              <TableCell>Sport ⚽️</TableCell>
+              <TableCell>Home 🏡</TableCell>
+              <TableCell>Weather 🌤️</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {salesRecord.map((sale) => (
+              <TableRow key={sale.id}>
+                <TableCell>
+                  {format(new Date(sale.day), "dd/MM/yyyy")}
+                </TableCell>
+                <TableCell>€ {sale.income}</TableCell>
+                <TableCell>{sale.men}</TableCell>
+                <TableCell>{sale.women}</TableCell>
+                <TableCell>{sale.kids}</TableCell>
+                <TableCell>{sale.clothing}</TableCell>
+                <TableCell>{sale.sport}</TableCell>
+                <TableCell>{sale.home}</TableCell>
+                <TableCell>{sale.weather}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }

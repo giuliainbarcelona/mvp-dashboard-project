@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import SalesTable from "./SalesTable";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableBody from "@mui/material/TableBody";
+import Button from "@mui/material/Button";
 
-// Here I am initializing the state, creating an object that represents
-// the types of sales data that we want to keep track of.
 function App() {
   const [existingRecords, setExistingRecords] = useState([]);
   const [input, setInput] = useState({
@@ -41,16 +45,11 @@ function App() {
     setInput((state) => ({ ...state, [name]: value }));
   }
 
-  // When we submit the form
-  // This function gets called
-  // I am preventing the page reload
-  // Then I am calling addInputs that sends the data to the backend
   function handleSubmit(event) {
     event.preventDefault();
     addInputs();
   }
 
-  //This function fetches the POST method from the backend
   function addInputs() {
     fetch("/api/", {
       method: "POST",
@@ -78,83 +77,98 @@ function App() {
         console.error(error);
       });
   }
+
   return (
-    <>
-      <h1>Dashboard Data Management System - Sales</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <label>
-          <input
-            type="date"
-            name="day"
-            placeholder="Day"
-            value={input.day}
-            onChange={handleInputChange}
-          ></input>
-          <input
-            type="number"
-            name="income"
-            placeholder="Income"
-            value={input.income}
-            onChange={handleInputChange}
-          ></input>
-          <input
-            type="number"
-            name="men"
-            placeholder="Men"
-            value={input.men}
-            onChange={handleInputChange}
-          ></input>
-          <input
-            type="number"
-            name="women"
-            placeholder="Women"
-            value={input.women}
-            onChange={handleInputChange}
-          ></input>
+    <Grid
+      container
+      spacing={{ xs: 2, md: 3 }}
+      columns={{ xs: 4, sm: 8, md: 12 }}
+    >
+      <Grid item xs={12} md={12}>
+        <h1>Dashboard Data Management System - Sales</h1>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <label>
+            <input
+              type="date"
+              name="day"
+              placeholder="Day"
+              value={input.day}
+              onChange={handleInputChange}
+            ></input>
+            <input
+              type="number"
+              name="income"
+              placeholder="Income"
+              value={input.income}
+              onChange={handleInputChange}
+            ></input>
+            <input
+              type="number"
+              name="men"
+              placeholder="Men"
+              value={input.men}
+              onChange={handleInputChange}
+            ></input>
+            <input
+              type="number"
+              name="women"
+              placeholder="Women"
+              value={input.women}
+              onChange={handleInputChange}
+            ></input>
+            <br />
+            <input
+              type="number"
+              name="kids"
+              placeholder="Kids"
+              value={input.kids}
+              onChange={handleInputChange}
+            ></input>
+            <input
+              type="number"
+              name="clothing"
+              placeholder="Clothing"
+              value={input.clothing}
+              onChange={handleInputChange}
+            ></input>
+            <input
+              type="number"
+              name="sport"
+              placeholder="Sport"
+              value={input.sport}
+              onChange={handleInputChange}
+            ></input>
+            <input
+              type="number"
+              name="home"
+              placeholder="Home"
+              value={input.home}
+              onChange={handleInputChange}
+            ></input>
+            <input
+              type="text"
+              name="weather"
+              placeholder="Weather"
+              value={input.weather}
+              onChange={handleInputChange}
+            ></input>
+          </label>
           <br />
-          <input
-            type="number"
-            name="kids"
-            placeholder="Kids"
-            value={input.kids}
-            onChange={handleInputChange}
-          ></input>
-          <input
-            type="number"
-            name="clothing"
-            placeholder="Clothing"
-            value={input.clothing}
-            onChange={handleInputChange}
-          ></input>
-          <input
-            type="number"
-            name="sport"
-            placeholder="Sport"
-            value={input.sport}
-            onChange={handleInputChange}
-          ></input>
-          <input
-            type="number"
-            name="home"
-            placeholder="Home"
-            value={input.home}
-            onChange={handleInputChange}
-          ></input>
-          <input
-            type="text"
-            name="weather"
-            placeholder="Weather"
-            value={input.weather}
-            onChange={handleInputChange}
-          ></input>
-        </label>
-        <br />
-        <button type="submit">Submit Data</button>
-      </form>
-      <br />
-      <SalesTable salesRecord={salesRecord} />
-      <button type="button">Dashboard</button>
-    </>
+          <br />
+          <Button type="submit" variant="contained">
+            Submit Data
+          </Button>
+        </form>
+      </Grid>
+      <Grid item xs={12} md={12}>
+        <SalesTable salesRecord={salesRecord} />
+      </Grid>
+      <Grid item xs={12} md={12}>
+        <Button type="button" variant="outlined">
+          Dashboard
+        </Button>
+      </Grid>
+    </Grid>
   );
 }
 

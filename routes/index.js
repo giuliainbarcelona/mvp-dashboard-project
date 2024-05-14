@@ -23,16 +23,15 @@ router.get("/:day", async function (req, res, next) {
   }
 });
 
-//Get records by week
-router.get("/:day", async function (req, res, next) {
-  // GUARD 2: we need a guard to check if the day even esists
+//Get records of the week
+router.get("/week/:day", async function (req, res, next) {
+  // GUARD 2: we need a guard to check if the day even exists
   try {
     const { day } = req.params;
-    const endDate = endDate.setDate(endDate.getDate() + 6);
-
     const result = await db(
-      `SELECT * FROM sales WHERE day BETWEEN '${day}' AND '${endDate}'`
+      `SELECT * FROM sales WHERE WEEK(day) = WEEK('${day}')`
     );
+
     res.status(200).send(result.data);
   } catch (err) {
     res.status(500).send(err);
@@ -40,11 +39,11 @@ router.get("/:day", async function (req, res, next) {
 });
 
 //Get records by month
-router.get("/:day", async function (req, res, next) {
-  // GUARD 2: we need a guard to check if the day even esists
+router.get("/month/:month", async function (req, res, next) {
+  // GUARD 2: we need a guard to check if the month even exists
   try {
-    const { day } = req.params;
-    const result = await db(`SELECT * FROM sales WHERE day = '${day}'`);
+    const { month } = req.params;
+    const result = await db(`SELECT * FROM sales WHERE MONTH(day) = ${month};`);
     res.status(200).send(result.data);
   } catch (err) {
     res.status(500).send(err);
@@ -52,11 +51,41 @@ router.get("/:day", async function (req, res, next) {
 });
 
 //Get records three month
-router.get("/:day", async function (req, res, next) {
-  // GUARD 2: we need a guard to check if the day even esists
+router.get("/quarter/:month/:endmonth", async function (req, res, next) {
+  // GUARD 2: we need a guard to check if the month even esists
+  try {
+    const { month, endmonth } = req.params;
+    const result = await db(
+      `SELECT * FROM sales WHERE MONTH(day) BETWEEN ${month} AND ${endmonth}`
+    );
+    res.status(200).send(result.data);
+    // console.log(result.data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+// The put method allows you to edit the fields with wrong information.
+// With this code, you can edit only one field or as many as you want.
+router.put("/:day", async function (req, res, next) {
   try {
     const { day } = req.params;
-    const result = await db(`SELECT * FROM sales WHERE day = '${day}'`);
+    const { income, men, women, kids, clothing, sport, home, weather } =
+      req.body;
+
+    const updateFields = [];
+    if (income !== undefined) updateFields.push(`income = ${income}`);
+    if (men !== undefined) updateFields.push(`men = ${men}`);
+    if (women !== undefined) updateFields.push(`women = ${women}`);
+    if (kids !== undefined) updateFields.push(`kids = ${kids}`);
+    if (clothing !== undefined) updateFields.push(`clothing = ${clothing}`);
+    if (sport !== undefined) updateFields.push(`sport = ${sport}`);
+    if (home !== undefined) updateFields.push(`home = ${home}`);
+    if (weather !== undefined) updateFields.push(`weather = '${weather}'`);
+
+    await db(`UPDATE sales SET ${updateFields.join(", ")} WHERE day= '${day}'`);
+
+    const result = await db(`SELECT * FROM sales WHERE day= '${day}'`);
     res.status(200).send(result.data);
   } catch (err) {
     res.status(500).send(err);

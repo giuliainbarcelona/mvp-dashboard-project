@@ -12,54 +12,24 @@ router.get("/", function (req, res, next) {
 });
 
 //Get records by date
-router.get("/:day", async function (req, res, next) {
-  // GUARD 2: we need a guard to check if the day even esists
+router.get("/dates", async function (req, res, next) {
+  console.log(req.query);
   try {
-    const { day } = req.params;
-    const result = await db(`SELECT * FROM sales WHERE day = '${day}'`);
-    res.status(200).send(result.data);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
+    const { start, end } = req.query;
+    let query = "SELECT * FROM sales";
 
-//Get records of the week
-router.get("/week/:day", async function (req, res, next) {
-  // GUARD 2: we need a guard to check if the day even exists
-  try {
-    const { day } = req.params;
-    const result = await db(
-      `SELECT * FROM sales WHERE WEEK(day) = WEEK('${day}')`
-    );
+    if (start && end) {
+      query += ` WHERE id BETWEEN '${start}' AND '${end}'`; // Filter data for the date range
+    } else if (start) {
+      query += ` WHERE id >= '${start}'`; // Filter data from the start date onwards
+    } else if (end) {
+      query += ` WHERE id <= '${end}'`; // Filter data up to the end date
+    }
 
-    res.status(200).send(result.data);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
+    console.log(start);
 
-//Get records by month
-router.get("/month/:month", async function (req, res, next) {
-  // GUARD 2: we need a guard to check if the month even exists
-  try {
-    const { month } = req.params;
-    const result = await db(`SELECT * FROM sales WHERE MONTH(day) = ${month};`);
+    const result = await db(query);
     res.status(200).send(result.data);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
-
-//Get records three month
-router.get("/quarter/:month/:endmonth", async function (req, res, next) {
-  // GUARD 2: we need a guard to check if the month even esists
-  try {
-    const { month, endmonth } = req.params;
-    const result = await db(
-      `SELECT * FROM sales WHERE MONTH(day) BETWEEN ${month} AND ${endmonth}`
-    );
-    res.status(200).send(result.data);
-    // console.log(result.data);
   } catch (err) {
     res.status(500).send(err);
   }
@@ -67,13 +37,14 @@ router.get("/quarter/:month/:endmonth", async function (req, res, next) {
 
 // The put method allows you to edit the fields with wrong information.
 // With this code, you can edit only one field or as many as you want.
-router.put("/:day", async function (req, res, next) {
+router.put("/:id", async function (req, res, next) {
   try {
-    const { day } = req.params;
-    const { income, men, women, kids, clothing, sport, home, weather } =
+    const { id } = req.params;
+    const { day, income, men, women, kids, clothing, sport, home, weather } =
       req.body;
 
     const updateFields = [];
+    if (day !== undefined) updateFields.push(`day = ${day}`);
     if (income !== undefined) updateFields.push(`income = ${income}`);
     if (men !== undefined) updateFields.push(`men = ${men}`);
     if (women !== undefined) updateFields.push(`women = ${women}`);
@@ -83,9 +54,9 @@ router.put("/:day", async function (req, res, next) {
     if (home !== undefined) updateFields.push(`home = ${home}`);
     if (weather !== undefined) updateFields.push(`weather = '${weather}'`);
 
-    await db(`UPDATE sales SET ${updateFields.join(", ")} WHERE day= '${day}'`);
+    await db(`UPDATE sales SET ${updateFields.join(", ")} WHERE id= '${id}'`);
 
-    const result = await db(`SELECT * FROM sales WHERE day= '${day}'`);
+    const result = await db(`SELECT * FROM sales WHERE id= '${id}'`);
     res.status(200).send(result.data);
   } catch (err) {
     res.status(500).send(err);
@@ -111,11 +82,11 @@ router.post("/", async function (req, res, next) {
 });
 
 // Deletes a record from the table by date
-router.delete("/:day", async function (req, res, next) {
+router.delete("/:id", async function (req, res, next) {
   // GUARD 2: we need a guard to check if the day even esists
   try {
     const { day } = req.params;
-    await db(`DELETE FROM sales WHERE day = '${day}'`);
+    await db(`DELETE FROM sales WHERE id = '${id}'`);
     const result = await db(`SELECT * FROM sales`);
     res.status(200).send(result.data);
   } catch (err) {

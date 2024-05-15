@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import SalesTable from "./SalesTable";
+import SalesTable from "./component/SalesTable";
 import "react-date-range/dist/styles.css"; // Styling the date picker
 import "react-date-range/dist/theme/default.css"; // Styling the date picker
 import Grid from "@mui/material/Grid"; // Taking the grid from a li
 import Button from "@mui/material/Button";
 import DateRangePickerComp from "./component/DateRangePickerComp";
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+// import Dialog from "./component/Dialog";
 
 function App() {
   const [input, setInput] = useState({
@@ -21,7 +26,7 @@ function App() {
   });
   const [salesRecord, setSalesRecord] = useState([]);
   const [errorMessage, setErrorMessage] = useState(""); // State variable to hold error message
-
+  const [openDialog, setOpenDialog] = useState(false);
   useEffect(() => {
     getExistingInputs();
   }, []);
@@ -45,6 +50,7 @@ function App() {
   function handleSubmit(event) {
     event.preventDefault();
     addInputs();
+    setOpenDialog(false);
   }
 
   function addInputs() {
@@ -107,7 +113,7 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
-  }
+  } // must be finished
 
   return (
     <div>
@@ -121,93 +127,125 @@ function App() {
         >
           <Grid item xs={12} md={12}>
             <h1>Dashboard Data Management System - Sales</h1>
-            <form onSubmit={(e) => handleSubmit(e)}>
-              <label>
-                <input
-                  type="date"
-                  name="day"
-                  placeholder="Day"
-                  value={input.day}
-                  onChange={handleInputChange}
-                ></input>
-                <input
-                  type="number"
-                  name="income"
-                  placeholder="Income"
-                  value={input.income}
-                  onChange={handleInputChange}
-                ></input>
-                <input
-                  type="number"
-                  name="men"
-                  placeholder="Men"
-                  value={input.men}
-                  onChange={handleInputChange}
-                ></input>
-                <input
-                  type="number"
-                  name="women"
-                  placeholder="Women"
-                  value={input.women}
-                  onChange={handleInputChange}
-                ></input>
-                <br />
-                <input
-                  type="number"
-                  name="kids"
-                  placeholder="Kids"
-                  value={input.kids}
-                  onChange={handleInputChange}
-                ></input>
-                <input
-                  type="number"
-                  name="clothing"
-                  placeholder="Clothing"
-                  value={input.clothing}
-                  onChange={handleInputChange}
-                ></input>
-                <input
-                  type="number"
-                  name="sport"
-                  placeholder="Sport"
-                  value={input.sport}
-                  onChange={handleInputChange}
-                ></input>
-                <input
-                  type="number"
-                  name="home"
-                  placeholder="Home"
-                  value={input.home}
-                  onChange={handleInputChange}
-                ></input>
-                <input
-                  type="text"
-                  name="weather"
-                  placeholder="Weather"
-                  value={input.weather}
-                  onChange={handleInputChange}
-                ></input>
-              </label>
-              <br />
-              <br />
-              <Button type="submit" variant="contained">
-                Submit Data
-              </Button>
-            </form>
+            <Dialog onClose={() => setOpenDialog(false)} open={openDialog}>
+              <DialogTitle>Set backup account</DialogTitle>
+              <form onSubmit={(e) => handleSubmit(e)}>
+                <DialogContent>
+                  <Grid container spacing={1}>
+                    <Grid item xs={4}>
+                      <input
+                        type="date"
+                        name="day"
+                        placeholder="Day"
+                        value={input.day}
+                        onChange={handleInputChange}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <input
+                        type="number"
+                        name="income"
+                        placeholder="Income"
+                        value={input.income}
+                        onChange={handleInputChange}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <input
+                        type="number"
+                        name="men"
+                        placeholder="Men"
+                        value={input.men}
+                        onChange={handleInputChange}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <input
+                        type="number"
+                        name="women"
+                        placeholder="Women"
+                        value={input.women}
+                        onChange={handleInputChange}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <input
+                        type="number"
+                        name="kids"
+                        placeholder="Kids"
+                        value={input.kids}
+                        onChange={handleInputChange}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <input
+                        type="number"
+                        name="clothing"
+                        placeholder="Clothing"
+                        value={input.clothing}
+                        onChange={handleInputChange}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <input
+                        type="number"
+                        name="sport"
+                        placeholder="Sport"
+                        value={input.sport}
+                        onChange={handleInputChange}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <input
+                        type="number"
+                        name="home"
+                        placeholder="Home"
+                        value={input.home}
+                        onChange={handleInputChange}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <input
+                        type="text"
+                        name="weather"
+                        placeholder="Weather"
+                        value={input.weather}
+                        onChange={handleInputChange}
+                      />
+                    </Grid>
+                  </Grid>
+                </DialogContent>
+                <DialogActions>
+                  <Button type="submit" variant="contained">
+                    Submit Data
+                  </Button>
+                </DialogActions>
+              </form>
+            </Dialog>
             <br />
             <DateRangePickerComp setSalesRecord={setSalesRecord} />
           </Grid>
+          {/* <Dialog
+            open={openDialog}
+            handleCloseDialog={() => {
+              setOpenDialog(false);
+            }}
+          /> */}
+          <Button
+            onClick={() => {
+              setOpenDialog(!openDialog);
+            }}
+            type="button"
+            variant="outlined"
+          >
+            Add Data
+          </Button>
           <Grid item xs={12} md={12}>
             <SalesTable
               salesRecord={salesRecord}
               deleteInput={deleteInput}
               editInput={editInput}
             />
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <Button type="button" variant="outlined">
-              Dashboard
-            </Button>
           </Grid>
         </Grid>
       )}

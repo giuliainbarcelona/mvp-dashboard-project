@@ -64,3 +64,6 @@ I have designed the MySQL database to efficiently manage and organize various ca
 \* The initial date is given in the american format: YYYY-MM-DD
 
 \*\* Men, women, kids, clothing, sport, home are the categories
+
+To create the DateRangePickerComp I have used this library: https://hypeserver.github.io/react-date-range/#calendar
+And coded along this tutorial: https://www.youtube.com/watch?v=5OEOLDBow_0

@@ -92,7 +92,22 @@ function App() {
       });
   }
 
-  // const [salesRecord, setSalesRecord] = useState([]);
+  function editInput(id) {
+    fetch(`/api/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    })
+      .then((response) => response.json())
+      .then((salesRecord) => {
+        setSalesRecord(salesRecord);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <div>
@@ -180,10 +195,14 @@ function App() {
               </Button>
             </form>
             <br />
-            <DateRangePickerComp />
+            <DateRangePickerComp setSalesRecord={setSalesRecord} />
           </Grid>
           <Grid item xs={12} md={12}>
-            <SalesTable salesRecord={salesRecord} deleteInput={deleteInput} />
+            <SalesTable
+              salesRecord={salesRecord}
+              deleteInput={deleteInput}
+              editInput={editInput}
+            />
           </Grid>
           <Grid item xs={12} md={12}>
             <Button type="button" variant="outlined">

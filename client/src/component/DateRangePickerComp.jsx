@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import format from "date-fns/format";
 import { addDays } from "date-fns";
+import Button from "@mui/material/Button";
 
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
-const DateRangePickerComp = () => {
+const DateRangePickerComp = ({ setSalesRecord }) => {
   const [range, setRange] = useState([
     {
       startDate: new Date(),
@@ -48,8 +49,8 @@ const DateRangePickerComp = () => {
     fetch(`/api/dates?startDate=${startDate}&endDate=${endDate}`)
       .then((response) => response.json())
       .then((salesRecord) => {
-        console.log(salesRecord);
-        // setSalesRecord(salesRecord);
+        // console.log(salesRecord);
+        setSalesRecord(salesRecord);
       })
       .catch((error) => {
         console.log(error);
@@ -58,7 +59,9 @@ const DateRangePickerComp = () => {
 
   return (
     <div className="calendarWrap">
-      <button
+      <Button
+        type="button"
+        variant="outlined"
         onClick={() =>
           fetchData({
             startDate: `${format(range[0].startDate, "yyyy-MM-dd")}`,
@@ -67,7 +70,7 @@ const DateRangePickerComp = () => {
         }
       >
         Filter By Date
-      </button>
+      </Button>
       <input
         value={`${format(range[0].startDate, "dd/MM/yyyy")} to ${format(
           range[0].endDate,

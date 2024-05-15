@@ -24,6 +24,7 @@ function App() {
     weather: "",
   });
   const [salesRecord, setSalesRecord] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(""); // State variable to hold error message
 
   useEffect(() => {
     getExistingInputs();
@@ -59,8 +60,8 @@ function App() {
       body: JSON.stringify(input),
     })
       .then((response) => response.json())
-      .then((newSalesRecord) => {
-        setSalesRecord(newSalesRecord);
+      .then((salesRecord) => {
+        setSalesRecord(salesRecord);
         setInput({
           day: "",
           income: "",
@@ -72,8 +73,12 @@ function App() {
           home: "",
           weather: "",
         });
+        setErrorMessage("");
+        console.log(salesRecord);
+        // console.log(newSalesRecord);
       })
       .catch((error) => {
+        setErrorMessage("Please fill out all inputs.");
         console.error(error);
       });
   }
@@ -94,96 +99,102 @@ function App() {
   // const [salesRecord, setSalesRecord] = useState([]);
 
   return (
-    <Grid
-      container
-      spacing={{ xs: 2, md: 3 }}
-      columns={{ xs: 4, sm: 8, md: 12 }}
-    >
-      <Grid item xs={12} md={12}>
-        <h1>Dashboard Data Management System - Sales</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <label>
-            <input
-              type="date"
-              name="day"
-              placeholder="Day"
-              value={input.day}
-              onChange={handleInputChange}
-            ></input>
-            <input
-              type="number"
-              name="income"
-              placeholder="Income"
-              value={input.income}
-              onChange={handleInputChange}
-            ></input>
-            <input
-              type="number"
-              name="men"
-              placeholder="Men"
-              value={input.men}
-              onChange={handleInputChange}
-            ></input>
-            <input
-              type="number"
-              name="women"
-              placeholder="Women"
-              value={input.women}
-              onChange={handleInputChange}
-            ></input>
-            <br />
-            <input
-              type="number"
-              name="kids"
-              placeholder="Kids"
-              value={input.kids}
-              onChange={handleInputChange}
-            ></input>
-            <input
-              type="number"
-              name="clothing"
-              placeholder="Clothing"
-              value={input.clothing}
-              onChange={handleInputChange}
-            ></input>
-            <input
-              type="number"
-              name="sport"
-              placeholder="Sport"
-              value={input.sport}
-              onChange={handleInputChange}
-            ></input>
-            <input
-              type="number"
-              name="home"
-              placeholder="Home"
-              value={input.home}
-              onChange={handleInputChange}
-            ></input>
-            <input
-              type="text"
-              name="weather"
-              placeholder="Weather"
-              value={input.weather}
-              onChange={handleInputChange}
-            ></input>
-          </label>
-          <br />
-          <br />
-          <Button type="submit" variant="contained">
-            Submit Data
-          </Button>
-        </form>
-      </Grid>
-      <Grid item xs={12} md={12}>
-        <SalesTable salesRecord={salesRecord} deleteInput={deleteInput} />
-      </Grid>
-      <Grid item xs={12} md={12}>
-        <Button type="button" variant="outlined">
-          Dashboard
-        </Button>
-      </Grid>
-    </Grid>
+    <div>
+      {salesRecord.message === "Please fill out all inputs." ? (
+        <p className="fill">Please fill out all inputs.</p>
+      ) : (
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          <Grid item xs={12} md={12}>
+            <h1>Dashboard Data Management System - Sales</h1>
+            <form onSubmit={(e) => handleSubmit(e)}>
+              <label>
+                <input
+                  type="date"
+                  name="day"
+                  placeholder="Day"
+                  value={input.day}
+                  onChange={handleInputChange}
+                ></input>
+                <input
+                  type="number"
+                  name="income"
+                  placeholder="Income"
+                  value={input.income}
+                  onChange={handleInputChange}
+                ></input>
+                <input
+                  type="number"
+                  name="men"
+                  placeholder="Men"
+                  value={input.men}
+                  onChange={handleInputChange}
+                ></input>
+                <input
+                  type="number"
+                  name="women"
+                  placeholder="Women"
+                  value={input.women}
+                  onChange={handleInputChange}
+                ></input>
+                <br />
+                <input
+                  type="number"
+                  name="kids"
+                  placeholder="Kids"
+                  value={input.kids}
+                  onChange={handleInputChange}
+                ></input>
+                <input
+                  type="number"
+                  name="clothing"
+                  placeholder="Clothing"
+                  value={input.clothing}
+                  onChange={handleInputChange}
+                ></input>
+                <input
+                  type="number"
+                  name="sport"
+                  placeholder="Sport"
+                  value={input.sport}
+                  onChange={handleInputChange}
+                ></input>
+                <input
+                  type="number"
+                  name="home"
+                  placeholder="Home"
+                  value={input.home}
+                  onChange={handleInputChange}
+                ></input>
+                <input
+                  type="text"
+                  name="weather"
+                  placeholder="Weather"
+                  value={input.weather}
+                  onChange={handleInputChange}
+                ></input>
+              </label>
+              <br />
+              <br />
+              <Button type="submit" variant="contained">
+                Submit Data
+              </Button>
+            </form>
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <SalesTable salesRecord={salesRecord} deleteInput={deleteInput} />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <Button type="button" variant="outlined">
+              Dashboard
+            </Button>
+          </Grid>
+        </Grid>
+      )}
+    </div>
   );
 }
 

@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
+const idMustExist = require("../guards/idMustExist");
+const allInputsMustExist = require("../guards/allInputsMustExist");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -13,7 +15,7 @@ router.get("/", function (req, res, next) {
 
 //Get records by date
 router.get("/dates", async function (req, res, next) {
-  console.log(req.query);
+  // console.log(req.query);
   try {
     const { start, end } = req.query;
     let query = "SELECT * FROM sales";
@@ -37,7 +39,7 @@ router.get("/dates", async function (req, res, next) {
 
 // The put method allows you to edit the fields with wrong information.
 // With this code, you can edit only one field or as many as you want.
-router.put("/:id", async function (req, res, next) {
+router.put("/:id", idMustExist, async function (req, res, next) {
   try {
     const { id } = req.params;
     const { day, income, men, women, kids, clothing, sport, home, weather } =
@@ -64,7 +66,7 @@ router.put("/:id", async function (req, res, next) {
 });
 
 // Adds a new record
-router.post("/", async function (req, res, next) {
+router.post("/", allInputsMustExist, async function (req, res, next) {
   // GUARD 1: to make sure all the data are inserted!
   try {
     const { day, income, men, women, kids, clothing, sport, home, weather } =
@@ -82,7 +84,7 @@ router.post("/", async function (req, res, next) {
 });
 
 // Deletes a record from the table by date
-router.delete("/:id", async function (req, res, next) {
+router.delete("/:id", idMustExist, async function (req, res, next) {
   // GUARD 2: we need a guard to check if the day even esists
   try {
     const { id } = req.params;

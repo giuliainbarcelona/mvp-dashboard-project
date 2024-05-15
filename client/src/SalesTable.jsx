@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-function SalesTable({ salesRecord }) {
+function SalesTable({ salesRecord, deleteInput }) {
   return (
     <div>
       <h2>Sales Data Table</h2>
@@ -25,6 +25,8 @@ function SalesTable({ salesRecord }) {
               <TableCell>Sport ⚽️</TableCell>
               <TableCell>Home 🏡</TableCell>
               <TableCell>Weather 🌤️</TableCell>
+              <TableCell>Delete ❌</TableCell>
+              <TableCell>Edit ✍🏼</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -41,6 +43,12 @@ function SalesTable({ salesRecord }) {
                 <TableCell>{sale.sport}</TableCell>
                 <TableCell>{sale.home}</TableCell>
                 <TableCell>{sale.weather}</TableCell>
+                <TableCell>
+                  <button onClick={() => deleteInput(sale.id)}>❌</button>
+                </TableCell>
+                <TableCell>
+                  <button onClick={() => editInput(sale.id)}>✍🏼</button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -78,6 +78,21 @@ function App() {
       });
   }
 
+  function deleteInput(id) {
+    fetch(`/api/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((salesRecord) => {
+        setSalesRecord(salesRecord);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  // const [salesRecord, setSalesRecord] = useState([]);
+
   return (
     <Grid
       container
@@ -161,7 +176,7 @@ function App() {
         </form>
       </Grid>
       <Grid item xs={12} md={12}>
-        <SalesTable salesRecord={salesRecord} />
+        <SalesTable salesRecord={salesRecord} deleteInput={deleteInput} />
       </Grid>
       <Grid item xs={12} md={12}>
         <Button type="button" variant="outlined">

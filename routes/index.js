@@ -23,7 +23,7 @@ router.get("/dates", async function (req, res, next) {
     } else if (start) {
       query += ` WHERE id >= '${start}'`; // Filter data from the start date onwards
     } else if (end) {
-      query += ` WHERE id <= '${end}'`; // Filter data up to the end date
+      query += ` WHERE day <= '${end}'`; // Filter data up to the end date
     }
 
     console.log(start);
@@ -85,7 +85,7 @@ router.post("/", async function (req, res, next) {
 router.delete("/:id", async function (req, res, next) {
   // GUARD 2: we need a guard to check if the day even esists
   try {
-    const { day } = req.params;
+    const { id } = req.params;
     await db(`DELETE FROM sales WHERE id = '${id}'`);
     const result = await db(`SELECT * FROM sales`);
     res.status(200).send(result.data);

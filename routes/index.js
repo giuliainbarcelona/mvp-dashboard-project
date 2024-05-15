@@ -15,20 +15,20 @@ router.get("/", function (req, res, next) {
 
 //Get records by date
 router.get("/dates", async function (req, res, next) {
-  // console.log(req.query);
+  console.log(req.query);
   try {
-    const { start, end } = req.query;
+    const { startDate, endDate } = req.query;
     let query = "SELECT * FROM sales";
 
-    if (start && end) {
-      query += ` WHERE id BETWEEN '${start}' AND '${end}'`; // Filter data for the date range
-    } else if (start) {
-      query += ` WHERE id >= '${start}'`; // Filter data from the start date onwards
-    } else if (end) {
-      query += ` WHERE day <= '${end}'`; // Filter data up to the end date
+    if (startDate && endDate) {
+      query += ` WHERE day BETWEEN '${startDate}' AND '${endDate}'`; // Filter data for the date range
+    } else if (startDate) {
+      query += ` WHERE day >= '${startDate}'`; // Filter data from the start date onwards
+    } else if (endDate) {
+      query += ` WHERE day <= '${endDate}'`; // Filter data up to the end date
     }
 
-    console.log(start);
+    // console.log(start);
 
     const result = await db(query);
     res.status(200).send(result.data);

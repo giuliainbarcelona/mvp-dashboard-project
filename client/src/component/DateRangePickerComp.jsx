@@ -21,11 +21,16 @@ const DateRangePickerComp = () => {
   useEffect(() => {
     document.addEventListener("keydown", hideOnEscape, true);
     document.addEventListener("click", hideOnClickOutside, true);
+
+    return () => {
+      document.removeEventListener("keydown", hideOnEscape, true);
+      document.removeEventListener("click", hideOnClickOutside, true);
+    };
   }, []);
 
   const hideOnEscape = (e) => {
-    console.log(e.key);
-    if (e - key === "Escape") {
+    // console.log(e.key);
+    if (e.key === "Escape") {
       setOpen(false);
     }
   };
@@ -36,8 +41,33 @@ const DateRangePickerComp = () => {
     }
   };
 
+  function fetchData(dates) {
+    const { startDate, endDate } = dates;
+    console.log(startDate);
+    console.log(endDate);
+    fetch(`/api/dates?startDate=${startDate}&endDate=${endDate}`)
+      .then((response) => response.json())
+      .then((salesRecord) => {
+        console.log(salesRecord);
+        // setSalesRecord(salesRecord);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <div className="calendarWrap">
+      <button
+        onClick={() =>
+          fetchData({
+            startDate: `${format(range[0].startDate, "yyyy-MM-dd")}`,
+            endDate: `${format(range[0].endDate, "yyyy-MM-dd")}`,
+          })
+        }
+      >
+        Filter By Date
+      </button>
       <input
         value={`${format(range[0].startDate, "dd/MM/yyyy")} to ${format(
           range[0].endDate,
@@ -50,8 +80,6 @@ const DateRangePickerComp = () => {
       <div ref={refOne}>
         {open && (
           <DateRangePicker
-            // date={new Date()}
-            //onChange={handleSelect}
             onChange={(item) => setRange([item.selection])}
             editableDateInputs={true}
             moveRangeOnFirstSelection={false}

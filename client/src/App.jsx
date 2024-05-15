@@ -8,7 +8,6 @@ import Button from "@mui/material/Button";
 import DateRangePickerComp from "./component/DateRangePickerComp";
 
 function App() {
-  const [existingRecords, setExistingRecords] = useState([]);
   const [input, setInput] = useState({
     day: "",
     income: "",
@@ -30,8 +29,8 @@ function App() {
   function getExistingInputs() {
     fetch("/api")
       .then((response) => response.json())
-      .then((existingRecords) => {
-        setExistingRecords(existingRecords);
+      .then((salesRecord) => {
+        setSalesRecord(salesRecord);
       })
       .catch((error) => {
         console.log(error);

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import SalesTable from "./SalesTable";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableBody from "@mui/material/TableBody";
+import "react-date-range/dist/styles.css"; // Styling the date picker
+import "react-date-range/dist/theme/default.css"; // Styling the date picker
+import Grid from "@mui/material/Grid"; // Taking the grid from a li
 import Button from "@mui/material/Button";
+import DateRangePickerComp from "./component/DateRangePickerComp";
 
 function App() {
   const [existingRecords, setExistingRecords] = useState([]);
@@ -183,6 +180,8 @@ function App() {
                 Submit Data
               </Button>
             </form>
+            <br />
+            <DateRangePickerComp />
           </Grid>
           <Grid item xs={12} md={12}>
             <SalesTable salesRecord={salesRecord} deleteInput={deleteInput} />

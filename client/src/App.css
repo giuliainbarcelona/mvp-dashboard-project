@@ -45,3 +45,26 @@
   color: red;
   font-size: xx-large;
 }
+
+input.inputBox {
+  font-size: 15px;
+  padding: 5px 8px 4px 8px;
+  border-radius: 3px;
+  border: 1px solid #1664c0;
+  min-width: 170px;
+  text-align: center;
+}
+
+.calendarWrap {
+  display: inline-block;
+  position: relative;
+}
+
+.calendarElement {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40px;
+  border: 1px solid #1664c0;
+  z-index: 999;
+}

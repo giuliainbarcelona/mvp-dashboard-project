@@ -25,8 +25,10 @@ function App() {
     weather: "",
   });
   const [salesRecord, setSalesRecord] = useState([]);
+  const [updatedSalesRecord, setUpdatedSalesRecord] = useState([]);
   const [errorMessage, setErrorMessage] = useState(""); // State variable to hold error message
   const [openDialog, setOpenDialog] = useState(false);
+
   useEffect(() => {
     getExistingInputs();
   }, []);
@@ -76,8 +78,11 @@ function App() {
           weather: "",
         });
         setErrorMessage("");
+        console.log("I am your input " + input.day + " " + input.income);
+        // The input is only the new record you just added
         console.log(salesRecord);
-        // console.log(newSalesRecord);
+        // console.log(salesRecord); = Give you back the array of objects with ALL the salesRecords.
+        // Exisiting ones and the new one you just added.
       })
       .catch((error) => {
         setErrorMessage("Please fill out all inputs.");
@@ -104,7 +109,7 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(input),
+      body: JSON.stringify(salesRecord.find((record) => record.id === id)),
     })
       .then((response) => response.json())
       .then((salesRecord) => {
@@ -126,9 +131,9 @@ function App() {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           <Grid item xs={12} md={12}>
-            <h1>Dashboard Data Management System - Sales</h1>
+            <h1>Dashboard Data Management System</h1>
             <Dialog onClose={() => setOpenDialog(false)} open={openDialog}>
-              <DialogTitle>Set backup account</DialogTitle>
+              <DialogTitle>Add you data here: </DialogTitle>
               <form onSubmit={(e) => handleSubmit(e)}>
                 <DialogContent>
                   <Grid container spacing={1}>

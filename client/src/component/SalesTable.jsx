@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-function SalesTable({ salesRecord, deleteInput, editInput }) {
+function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
   const totals = salesRecord.reduce(
     (acc, sale) => {
       acc.income += sale.income;
@@ -18,6 +18,7 @@ function SalesTable({ salesRecord, deleteInput, editInput }) {
       acc.clothing += sale.clothing;
       acc.sport += sale.sport;
       acc.home += sale.home;
+
       return acc;
     },
     {
@@ -30,6 +31,7 @@ function SalesTable({ salesRecord, deleteInput, editInput }) {
       home: 0,
     }
   );
+
   return (
     <div>
       <h2>Sales Data Table</h2>
@@ -48,39 +50,41 @@ function SalesTable({ salesRecord, deleteInput, editInput }) {
               <TableCell>Total Items 🟰</TableCell>
               <TableCell>Weather 🌤️</TableCell>
               <TableCell>Delete ❌</TableCell>
-              <TableCell>Edit ✍🏼</TableCell>
+              <TableCell>Save ✅</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {salesRecord.map((sale) => (
-              <TableRow key={sale.id}>
-                <TableCell>
-                  {format(new Date(sale.day), "dd/MM/yyyy")}
-                </TableCell>
-                <TableCell contentEditable>€ {sale.income}</TableCell>
-                <TableCell contentEditable>{sale.men}</TableCell>
-                <TableCell contentEditable>{sale.women}</TableCell>
-                <TableCell contentEditable>{sale.kids}</TableCell>
-                <TableCell contentEditable>{sale.clothing}</TableCell>
-                <TableCell contentEditable>{sale.sport}</TableCell>
-                <TableCell contentEditable>{sale.home}</TableCell>
-                <TableCell>
-                  {sale.men +
-                    sale.women +
-                    sale.kids +
-                    sale.clothing +
-                    sale.sport +
-                    sale.home}
-                </TableCell>
-                <TableCell contentEditable>{sale.weather}</TableCell>
-                <TableCell>
-                  <button onClick={() => deleteInput(sale.id)}>❌</button>
-                </TableCell>
-                <TableCell>
-                  <button onClick={() => editInput(sale.id)}>✍🏼</button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {salesRecord &&
+              salesRecord.length > 0 &&
+              salesRecord.map((sale) => (
+                <TableRow key={sale.id}>
+                  <TableCell>
+                    {format(new Date(sale.day), "dd/MM/yyyy")}
+                  </TableCell>
+                  <TableCell contentEditable>€ {sale.income}</TableCell>
+                  <TableCell contentEditable>{sale.men}</TableCell>
+                  <TableCell contentEditable>{sale.women}</TableCell>
+                  <TableCell contentEditable>{sale.kids}</TableCell>
+                  <TableCell contentEditable>{sale.clothing}</TableCell>
+                  <TableCell contentEditable>{sale.sport}</TableCell>
+                  <TableCell contentEditable>{sale.home}</TableCell>
+                  <TableCell>
+                    {sale.men +
+                      sale.women +
+                      sale.kids +
+                      sale.clothing +
+                      sale.sport +
+                      sale.home}
+                  </TableCell>
+                  <TableCell contentEditable>{sale.weather}</TableCell>
+                  <TableCell>
+                    <button onClick={() => deleteInput(sale.id)}>❌</button>
+                  </TableCell>
+                  <TableCell>
+                    <button onClick={() => editInput(sale.id)}>✅</button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

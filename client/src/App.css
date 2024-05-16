@@ -68,3 +68,7 @@ input.inputBox {
   border: 1px solid #1664c0;
   z-index: 999;
 }
+
+.updated {
+  text-decoration: line-through;
+}

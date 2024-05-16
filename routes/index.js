@@ -45,25 +45,35 @@ router.put("/:id", idMustExist, async function (req, res, next) {
     const { day, income, men, women, kids, clothing, sport, home, weather } =
       req.body;
 
-    const updateFields = [];
-    if (day !== undefined) updateFields.push(`day = ${day}`);
-    if (income !== undefined) updateFields.push(`income = ${income}`);
-    if (men !== undefined) updateFields.push(`men = ${men}`);
-    if (women !== undefined) updateFields.push(`women = ${women}`);
-    if (kids !== undefined) updateFields.push(`kids = ${kids}`);
-    if (clothing !== undefined) updateFields.push(`clothing = ${clothing}`);
-    if (sport !== undefined) updateFields.push(`sport = ${sport}`);
-    if (home !== undefined) updateFields.push(`home = ${home}`);
+    const updateFields = []; // empty array that stores the fields that needs to be updated in the db. Works!
+
+    // if (day !== undefined) updateFields.push(`day = '${day.substr(0, 10)}'`);
+    if (income !== undefined) updateFields.push(`income = '${income}'`);
+    if (men !== undefined) updateFields.push(`men = '${men}'`);
+    if (women !== undefined) updateFields.push(`women = '${women}'`);
+    if (kids !== undefined) updateFields.push(`kids = '${kids}'`);
+    if (clothing !== undefined) updateFields.push(`clothing = '${clothing}'`);
+    if (sport !== undefined) updateFields.push(`sport = '${sport}'`);
+    if (home !== undefined) updateFields.push(`home = '${home}'`);
     if (weather !== undefined) updateFields.push(`weather = '${weather}'`);
 
+    // await db(`UPDATE sales SET ${updateFields.join(", ")}`);
     await db(`UPDATE sales SET ${updateFields.join(", ")} WHERE id= '${id}'`);
+    // `UPDATE sales SET income=${updateFields.join(", ")} WHERE id= '${id}'`;
 
-    const result = await db(`SELECT * FROM sales WHERE id= '${id}'`);
+    const result = await db(`SELECT * FROM sales`);
+    console.log(updateFields);
+    console.log(id);
     res.status(200).send(result.data);
   } catch (err) {
     res.status(500).send(err);
   }
 });
+
+// // code
+// "UPDATE sales SET  WHERE id= '65'"
+// sqlMessage: "You have an error in your SQL syntax; check the manual that corresponds to your
+// MySQL server version for the right syntax to use near 'WHERE id= '65'' at line 1"
 
 // Adds a new record
 router.post("/", allInputsMustExist, async function (req, res, next) {

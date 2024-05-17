@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import SalesTable from "./component/SalesTable";
-import "react-date-range/dist/styles.css"; // Styling the date picker
-import "react-date-range/dist/theme/default.css"; // Styling the date picker
-import Grid from "@mui/material/Grid"; // Taking the grid from a li
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import DateRangePickerComp from "./component/DateRangePickerComp";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
+import { PDFDownloadLink } from "@react-pdf/renderer"; // Import PDFDownloadLink
+import SalesTablePDF from "./component/SalesTablePDF";
 
 function App() {
   const [input, setInput] = useState({
@@ -226,6 +228,20 @@ function App() {
               </form>
             </Dialog>
             <br />
+            <PDFDownloadLink
+              document={<SalesTablePDF salesRecord={salesRecord} />} // Pass salesRecord as data
+              fileName="YourTable.pdf"
+            >
+              {({ loading, error }) =>
+                loading ? (
+                  <button>Loading Table</button>
+                ) : (
+                  <Button type="button" variant="contained">
+                    Download
+                  </Button>
+                )
+              }
+            </PDFDownloadLink>
             <DateRangePickerComp setSalesRecord={setSalesRecord} />
             <div className="adddata-btn">
               <Button
@@ -239,13 +255,6 @@ function App() {
               </Button>
             </div>
           </Grid>
-          {/* <Dialog
-            open={openDialog}
-            handleCloseDialog={() => {
-              setOpenDialog(false);
-            }}
-          /> */}
-
           <Grid item xs={12} md={12}>
             <SalesTable
               setSalesRecord={setSalesRecord}

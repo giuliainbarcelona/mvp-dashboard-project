@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  Page,
-  Text,
-  Image,
-  View,
-  Document,
-  StyleSheet,
-} from "@react-pdf/renderer";
+import { Page, Text, Document, StyleSheet } from "@react-pdf/renderer";
+import { TableContainer } from "@mui/material";
 
 // Create styles
 const styles = StyleSheet.create({

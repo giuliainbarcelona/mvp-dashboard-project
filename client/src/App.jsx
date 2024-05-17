@@ -120,6 +120,29 @@ function App() {
       });
   } // must be finished
 
+  const pieData = {
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
+  };
+
   return (
     <div>
       {salesRecord.message === "Please fill out all inputs." ? (

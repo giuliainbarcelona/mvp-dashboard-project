@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { format } from "date-fns"; // Import the format function
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -32,6 +32,13 @@ function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
     }
   );
 
+  const [editableCell, setEditableCell] = useState(null);
+
+  const handleEdit = (id, field, value) => {
+    editInput(id, field, value);
+    setEditableCell(null);
+  };
+
   return (
     <div>
       <h2>Sales Data Table</h2>
@@ -50,7 +57,6 @@ function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
               <TableCell>Total Items 🟰</TableCell>
               <TableCell>Weather 🌤️</TableCell>
               <TableCell>Delete ❌</TableCell>
-              <TableCell>Save ✅</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -61,13 +67,172 @@ function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
                   <TableCell>
                     {format(new Date(sale.day), "dd/MM/yyyy")}
                   </TableCell>
-                  <TableCell contentEditable>€ {sale.income}</TableCell>
-                  <TableCell contentEditable>{sale.men}</TableCell>
-                  <TableCell contentEditable>{sale.women}</TableCell>
-                  <TableCell contentEditable>{sale.kids}</TableCell>
-                  <TableCell contentEditable>{sale.clothing}</TableCell>
-                  <TableCell contentEditable>{sale.sport}</TableCell>
-                  <TableCell contentEditable>{sale.home}</TableCell>
+                  <TableCell
+                    onClick={() => setEditableCell(`${sale.id}-income`)}
+                  >
+                    {editableCell === `${sale.id}-income` ? (
+                      <input
+                        type="number"
+                        value={sale.income}
+                        onChange={(e) => {
+                          const newValue = Number(e.target.value);
+                          setSalesRecord((prev) =>
+                            prev.map((item) =>
+                              item.id === sale.id
+                                ? { ...item, income: newValue }
+                                : item
+                            )
+                          );
+                        }}
+                        onBlur={() =>
+                          handleEdit(sale.id, "income", sale.income)
+                        }
+                        autoFocus
+                      />
+                    ) : (
+                      `€ ${sale.income}`
+                    )}
+                  </TableCell>
+                  <TableCell onClick={() => setEditableCell(`${sale.id}-men`)}>
+                    {editableCell === `${sale.id}-men` ? (
+                      <input
+                        type="number"
+                        value={sale.men}
+                        onChange={(e) => {
+                          const newValue = Number(e.target.value);
+                          setSalesRecord((prev) =>
+                            prev.map((item) =>
+                              item.id === sale.id
+                                ? { ...item, men: newValue }
+                                : item
+                            )
+                          );
+                        }}
+                        onBlur={() => handleEdit(sale.id, "men", sale.men)}
+                        autoFocus
+                      />
+                    ) : (
+                      `${sale.men}`
+                    )}
+                  </TableCell>
+                  <TableCell
+                    onClick={() => setEditableCell(`${sale.id}-women`)}
+                  >
+                    {editableCell === `${sale.id}-women` ? (
+                      <input
+                        type="number"
+                        value={sale.women}
+                        onChange={(e) => {
+                          const newValue = Number(e.target.value);
+                          setSalesRecord((prev) =>
+                            prev.map((item) =>
+                              item.id === sale.id
+                                ? { ...item, women: newValue }
+                                : item
+                            )
+                          );
+                        }}
+                        onBlur={() => handleEdit(sale.id, "women", sale.women)}
+                        autoFocus
+                      />
+                    ) : (
+                      `${sale.women}`
+                    )}
+                  </TableCell>
+                  <TableCell onClick={() => setEditableCell(`${sale.id}-kids`)}>
+                    {editableCell === `${sale.id}-kids` ? (
+                      <input
+                        type="number"
+                        value={sale.kids}
+                        onChange={(e) => {
+                          const newValue = Number(e.target.value);
+                          setSalesRecord((prev) =>
+                            prev.map((item) =>
+                              item.id === sale.id
+                                ? { ...item, kids: newValue }
+                                : item
+                            )
+                          );
+                        }}
+                        onBlur={() => handleEdit(sale.id, "kids", sale.kids)}
+                        autoFocus
+                      />
+                    ) : (
+                      `${sale.kids}`
+                    )}
+                  </TableCell>
+                  <TableCell
+                    onClick={() => setEditableCell(`${sale.id}-clothing`)}
+                  >
+                    {editableCell === `${sale.id}-clothing` ? (
+                      <input
+                        type="number"
+                        value={sale.clothing}
+                        onChange={(e) => {
+                          const newValue = Number(e.target.value);
+                          setSalesRecord((prev) =>
+                            prev.map((item) =>
+                              item.id === sale.id
+                                ? { ...item, clothing: newValue }
+                                : item
+                            )
+                          );
+                        }}
+                        onBlur={() =>
+                          handleEdit(sale.id, "clothing", sale.clothing)
+                        }
+                        autoFocus
+                      />
+                    ) : (
+                      `${sale.clothing}`
+                    )}
+                  </TableCell>
+                  <TableCell
+                    onClick={() => setEditableCell(`${sale.id}-sport`)}
+                  >
+                    {editableCell === `${sale.id}-sport` ? (
+                      <input
+                        type="number"
+                        value={sale.sport}
+                        onChange={(e) => {
+                          const newValue = Number(e.target.value);
+                          setSalesRecord((prev) =>
+                            prev.map((item) =>
+                              item.id === sale.id
+                                ? { ...item, sport: newValue }
+                                : item
+                            )
+                          );
+                        }}
+                        onBlur={() => handleEdit(sale.id, "sport", sale.sport)}
+                        autoFocus
+                      />
+                    ) : (
+                      `${sale.sport}`
+                    )}
+                  </TableCell>
+                  <TableCell onClick={() => setEditableCell(`${sale.id}-home`)}>
+                    {editableCell === `${sale.id}-home` ? (
+                      <input
+                        type="number"
+                        value={sale.home}
+                        onChange={(e) => {
+                          const newValue = Number(e.target.value);
+                          setSalesRecord((prev) =>
+                            prev.map((item) =>
+                              item.id === sale.id
+                                ? { ...item, home: newValue }
+                                : item
+                            )
+                          );
+                        }}
+                        onBlur={() => handleEdit(sale.id, "home", sale.home)}
+                        autoFocus
+                      />
+                    ) : (
+                      `${sale.home}`
+                    )}
+                  </TableCell>
                   <TableCell>
                     {sale.men +
                       sale.women +
@@ -76,12 +241,11 @@ function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
                       sale.sport +
                       sale.home}
                   </TableCell>
-                  <TableCell contentEditable>{sale.weather}</TableCell>
                   <TableCell>
-                    <button onClick={() => deleteInput(sale.id)}>❌</button>
+                    <td>{sale.weather}</td>
                   </TableCell>
                   <TableCell>
-                    <button onClick={() => editInput(sale.id)}>✅</button>
+                    <button onClick={() => deleteInput(sale.id)}>❌</button>
                   </TableCell>
                 </TableRow>
               ))}

@@ -10,7 +10,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-// import Dialog from "./component/Dialog";
 
 function App() {
   const [input, setInput] = useState({
@@ -25,7 +24,6 @@ function App() {
     weather: "",
   });
   const [salesRecord, setSalesRecord] = useState([]);
-  const [updatedSalesRecord, setUpdatedSalesRecord] = useState([]);
   const [errorMessage, setErrorMessage] = useState(""); // State variable to hold error message
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -229,6 +227,17 @@ function App() {
             </Dialog>
             <br />
             <DateRangePickerComp setSalesRecord={setSalesRecord} />
+            <div className="adddata-btn">
+              <Button
+                onClick={() => {
+                  setOpenDialog(!openDialog);
+                }}
+                type="button"
+                variant="contained"
+              >
+                Add Data
+              </Button>
+            </div>
           </Grid>
           {/* <Dialog
             open={openDialog}
@@ -236,17 +245,10 @@ function App() {
               setOpenDialog(false);
             }}
           /> */}
-          <Button
-            onClick={() => {
-              setOpenDialog(!openDialog);
-            }}
-            type="button"
-            variant="outlined"
-          >
-            Add Data
-          </Button>
+
           <Grid item xs={12} md={12}>
             <SalesTable
+              setSalesRecord={setSalesRecord}
               salesRecord={salesRecord}
               deleteInput={deleteInput}
               editInput={editInput}

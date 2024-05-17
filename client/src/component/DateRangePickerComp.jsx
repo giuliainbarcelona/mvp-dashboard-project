@@ -61,7 +61,7 @@ const DateRangePickerComp = ({ setSalesRecord }) => {
     <div className="calendarWrap">
       <Button
         type="button"
-        variant="outlined"
+        variant="contained"
         onClick={() =>
           fetchData({
             startDate: `${format(range[0].startDate, "yyyy-MM-dd")}`,

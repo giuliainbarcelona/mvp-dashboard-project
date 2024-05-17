@@ -120,29 +120,6 @@ function App() {
       });
   } // must be finished
 
-  const pieData = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      tooltip: {
-        enabled: true,
-      },
-    },
-  };
-
   return (
     <div>
       {salesRecord.message === "Please fill out all inputs." ? (
@@ -250,41 +227,51 @@ function App() {
                 </DialogActions>
               </form>
             </Dialog>
+
             <br />
-            <PDFDownloadLink
-              document={<SalesTablePDF salesRecord={salesRecord} />} // Pass salesRecord as data
-              fileName="YourTable.pdf"
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              alignItems="center"
             >
-              {({ loading, error }) =>
-                loading ? (
-                  <button>Loading Table</button>
-                ) : (
-                  <Button type="button" variant="contained">
-                    Download
-                  </Button>
-                )
-              }
-            </PDFDownloadLink>
-            <DateRangePickerComp setSalesRecord={setSalesRecord} />
-            <div className="adddata-btn">
-              <Button
-                onClick={() => {
-                  setOpenDialog(!openDialog);
-                }}
-                type="button"
-                variant="contained"
+              <div className="adddata-btn">
+                <Button
+                  onClick={() => {
+                    setOpenDialog(!openDialog);
+                  }}
+                  type="button"
+                  variant="contained"
+                >
+                  Add Data
+                </Button>
+              </div>
+
+              <PDFDownloadLink
+                document={<SalesTablePDF salesRecord={salesRecord} />}
+                fileName="YourTable.pdf"
               >
-                Add Data
-              </Button>
-            </div>
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <SalesTable
-              setSalesRecord={setSalesRecord}
-              salesRecord={salesRecord}
-              deleteInput={deleteInput}
-              editInput={editInput}
-            />
+                {({ loading, error }) =>
+                  loading ? (
+                    <button>Loading Table</button>
+                  ) : (
+                    <Button type="button" variant="contained">
+                      Download
+                    </Button>
+                  )
+                }
+              </PDFDownloadLink>
+
+              <DateRangePickerComp setSalesRecord={setSalesRecord} />
+            </Grid>
+            <Grid item xs={12} md={12}>
+              <SalesTable
+                setSalesRecord={setSalesRecord}
+                salesRecord={salesRecord}
+                deleteInput={deleteInput}
+                editInput={editInput}
+              />
+            </Grid>
           </Grid>
         </Grid>
       )}

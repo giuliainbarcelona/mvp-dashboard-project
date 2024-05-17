@@ -69,9 +69,8 @@ input.inputBox {
   z-index: 999;
 }
 
-.adddata-btn {
-  text-decoration: line-through;
+/* .adddata-btn {
   position: relative;
   display: inline-block;
   margin-left: 100px;
-}
+} */

@@ -73,3 +73,4 @@ Code Improvements:
 - Add the Dialog into a different component. For this you need to also import on the new component all the functions and state needed.
 - Dailog information: tutorial: https://www.youtube.com/watch?v=_Rz2p3rjBvY
 - Component on Material UI: https://mui.com/material-ui/react-dialog/
+- PDF download component: https://react-pdf.org/

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import SalesTable from "./component/SalesTable";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
-import DateRangePickerComp from "./component/DateRangePickerComp";
-import DialogTitle from "@mui/material/DialogTitle";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import { PDFDownloadLink } from "@react-pdf/renderer"; // Import PDFDownloadLink
-import SalesTablePDF from "./component/SalesTablePDF";
+import React, { useState, useEffect } from "react"; // Import React + useSate + useEffect (allows you to fetch data)
+import "./App.css"; // Imports the CSS file
+import SalesTable from "./component/SalesTable"; // Import the SalesTable component
+import DateRangePickerComp from "./component/DateRangePickerComp"; // Import the DateRangePickerComp component
+import SalesTablePDF from "./component/SalesTablePDF"; // Import the SalesTablePDF component
+import { PDFDownloadLink } from "@react-pdf/renderer"; // Import PDFDownloadLink (allows user to download the PDF)
+import "react-date-range/dist/styles.css"; // Import the data range picking functinality
+import "react-date-range/dist/theme/default.css"; // Import the data range picking functinality's theme
+import Grid from "@mui/material/Grid"; // Import Grid from MUI
+import Button from "@mui/material/Button"; // Import Button from MUI
+import DialogTitle from "@mui/material/DialogTitle"; // Import DialogTitle from MUI
+import Dialog from "@mui/material/Dialog"; // Import Dialog from MUI
+import DialogActions from "@mui/material/DialogActions"; // Import DialoActions from MUI
+import DialogContent from "@mui/material/DialogContent"; // Import DialogContent from MUI
 
 function App() {
   const [input, setInput] = useState({
@@ -118,7 +118,7 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
-  } // must be finished
+  }
 
   return (
     <div>
@@ -131,7 +131,11 @@ function App() {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           <Grid item xs={12} md={12}>
-            <h1>Dashboard Data Management System</h1>
+            <h1>
+              📊 👩🏻‍💻
+              <br />
+              Dashboard Data Management System
+            </h1>
             <Dialog onClose={() => setOpenDialog(false)} open={openDialog}>
               <DialogTitle>Add you data here: </DialogTitle>
               <form onSubmit={(e) => handleSubmit(e)}>
@@ -255,9 +259,11 @@ function App() {
                   loading ? (
                     <button>Loading Table</button>
                   ) : (
-                    <Button type="button" variant="contained">
-                      Download
-                    </Button>
+                    <div className="download-btn">
+                      <Button type="button" variant="contained">
+                        Download
+                      </Button>
+                    </div>
                   )
                 }
               </PDFDownloadLink>

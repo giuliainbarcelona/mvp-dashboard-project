@@ -59,28 +59,30 @@ const DateRangePickerComp = ({ setSalesRecord }) => {
 
   return (
     <div className=".calendarWrap">
-      <Button
-        type="button"
-        variant="contained"
-        className="filterdata-btn"
-        onClick={() =>
-          fetchData({
-            startDate: `${format(range[0].startDate, "yyyy-MM-dd")}`,
-            endDate: `${format(range[0].endDate, "yyyy-MM-dd")}`,
-          })
-        }
-      >
-        Filter By Date
-      </Button>
-      <input
-        value={`${format(range[0].startDate, "dd/MM/yyyy")} to ${format(
-          range[0].endDate,
-          "dd/MM/yyyy"
-        )}`}
-        readOnly
-        className="inputBox"
-        onClick={() => setOpen((open) => !open)}
-      />
+      <div className="filterdata-btn">
+        <Button
+          type="button"
+          variant="contained"
+          onClick={() =>
+            fetchData({
+              startDate: `${format(range[0].startDate, "yyyy-MM-dd")}`,
+              endDate: `${format(range[0].endDate, "yyyy-MM-dd")}`,
+            })
+          }
+        >
+          Filter By Date
+        </Button>
+      </div>
+      <div className="inputBox">
+        <input
+          value={`${format(range[0].startDate, "dd/MM/yyyy")} to ${format(
+            range[0].endDate,
+            "dd/MM/yyyy"
+          )}`}
+          readOnly
+          onClick={() => setOpen((open) => !open)}
+        />
+      </div>
       <div ref={refOne}>
         {open && (
           <DateRangePicker

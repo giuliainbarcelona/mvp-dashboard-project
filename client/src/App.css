@@ -58,6 +58,7 @@ input.inputBox {
 .calendarWrap {
   display: inline-block;
   position: relative;
+  margin-right: 400px;
 }
 
 .calendarElement {
@@ -69,8 +70,25 @@ input.inputBox {
   z-index: 999;
 }
 
-/* .adddata-btn {
+.adddata-btn {
   position: relative;
   display: inline-block;
-  margin-left: 100px;
+  margin-right: 200px;
+}
+
+.inputBox {
+  position: relative;
+  display: inline-block;
+  margin-left: 200px;
+}
+
+.download-btn {
+  position: relative;
+  margin-right: 400px;
+}
+
+/* .filterdata-btn {
+  position: relative;
+  display: inline-block;
+  margin-right: 400px;
 } */

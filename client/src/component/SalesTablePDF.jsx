@@ -2,7 +2,6 @@ import React from "react";
 import { Page, Text, Document, StyleSheet, View } from "@react-pdf/renderer";
 import { format } from "date-fns"; // formatting the date into european date <3
 
-// Create styles
 const styles = StyleSheet.create({
   body: {
     paddingTop: 35,

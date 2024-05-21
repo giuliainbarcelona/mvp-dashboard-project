@@ -1,8 +1,8 @@
-var express = require("express");
-var router = express.Router();
-const db = require("../model/helper");
-const idMustExist = require("../guards/idMustExist");
-const allInputsMustExist = require("../guards/allInputsMustExist");
+var express = require("express"); // Import the Express framework.
+var router = express.Router(); // Create a router object using Express.
+const db = require("../model/helper"); // Import the database helper functions.
+const idMustExist = require("../guards/idMustExist"); // Import a middleware (a.k.a guards) to check if an ID exists.
+const allInputsMustExist = require("../guards/allInputsMustExist"); // Import a middleware (a.k.a guards)to check if all required inputs exist.
 
 /* GET home page. */
 router.get("/", function (req, res, next) {

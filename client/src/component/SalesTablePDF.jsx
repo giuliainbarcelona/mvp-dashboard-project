@@ -1,6 +1,9 @@
-import React from "react";
+import React from "react"; // Importing React library for creating components.
 import { Page, Text, Document, StyleSheet, View } from "@react-pdf/renderer";
+// Importing components and styles from react-pdf library for PDF generation.
 import { format } from "date-fns"; // formatting the date into european date <3
+
+// Define styles for PDF document. This is the way to write CSS inside React.
 
 const styles = StyleSheet.create({
   body: {
@@ -32,8 +35,9 @@ const styles = StyleSheet.create({
 });
 
 const SalesTablePDF = ({ salesRecord = [] }) => {
-  console.log("salesRecord:", salesRecord);
-
+  // console.log("salesRecord:", salesRecord);
+  // Calculating totals from salesRecord data.
+  // Exactly how it is done on the other SalesTable
   const totals = salesRecord.reduce(
     (acc, sale) => {
       acc.income += sale.income;
@@ -56,6 +60,8 @@ const SalesTablePDF = ({ salesRecord = [] }) => {
     }
   );
 
+  // The rendering magic starts.
+  // Creating a PDF document with sales data.
   return (
     <Document>
       <Page size="A4" style={styles.body}>

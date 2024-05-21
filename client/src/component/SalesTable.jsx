@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import { format } from "date-fns"; // Import the format function
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import React, { useState } from "react"; // Import React
+import { format } from "date-fns"; // Import the format function from date-fns library
+import Table from "@mui/material/Table"; // Import from matetial UI
+import TableBody from "@mui/material/TableBody"; // Import from matetial UI
+import TableCell from "@mui/material/TableCell"; // Import from matetial UI
+import TableContainer from "@mui/material/TableContainer"; // Import from matetial UI
+import TableHead from "@mui/material/TableHead"; // Import from matetial UI
+import TableRow from "@mui/material/TableRow"; // Import from matetial UI
+import Paper from "@mui/material/Paper"; // Import from matetial UI
 
+// Defines a function called SalesTable which has the following props:
 function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
+  // Calculates total values for different categories from the sales records by using the reduce method.
   const totals = salesRecord.reduce(
     (acc, sale) => {
       acc.income += sale.income;
@@ -32,13 +34,21 @@ function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
     }
   );
 
-  const [editableCell, setEditableCell] = useState(null);
+  // Initialize state to track which cell is currently editable.
+  const [editableCell, setEditableCell] = useState("");
 
+  // This function updates a specific field of the sale record.
+  // When the user finishes editing a cell and clicks outside or presses enter, this function is called to save the changes and exit edit mode.
+  // The three params that this function takes are:
+  // id = unique identifier of the record that it is beign edited
+  // field = specific field being edited (ex: income, weather,..)
+  // value = the new value you type
   const handleEdit = (id, field, value) => {
     editInput(id, field, value);
-    setEditableCell(null);
+    setEditableCell("");
   };
 
+  // The rendering magic starts.
   return (
     <div>
       <h2>Sales Data Table</h2>
@@ -60,6 +70,7 @@ function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
             </TableRow>
           </TableHead>
           <TableBody>
+            {/* Checks if the salesrRecord exists and it is not empty */}
             {salesRecord &&
               salesRecord.length > 0 &&
               salesRecord.map((sale) => (
@@ -68,12 +79,15 @@ function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
                     {format(new Date(sale.day), "dd/MM/yyyy")}
                   </TableCell>
                   <TableCell
+                    // Makes the cell editable when clicked.
                     onClick={() => setEditableCell(`${sale.id}-income`)}
                   >
+                    {/* Conditional: Checks if this cell is currently editable. */}
                     {editableCell === `${sale.id}-income` ? (
                       <input
                         type="number"
-                        value={sale.income}
+                        value={sale.income} // Sets the current value of the input to sale.income.
+                        // Updates the income value in salesRecord when the input changes
                         onChange={(e) => {
                           const newValue = Number(e.target.value);
                           setSalesRecord((prev) =>
@@ -84,6 +98,7 @@ function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
                             )
                           );
                         }}
+                        // Calls handleEdit to save changes and exit edit mode when the input loses focus.
                         onBlur={() =>
                           handleEdit(sale.id, "income", sale.income)
                         }
@@ -234,6 +249,7 @@ function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
                     )}
                   </TableCell>
                   <TableCell>
+                    {/* Displays the total by summing */}
                     {sale.men +
                       sale.women +
                       sale.kids +
@@ -241,10 +257,34 @@ function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
                       sale.sport +
                       sale.home}
                   </TableCell>
-                  <TableCell>
-                    <td>{sale.weather}</td>
+                  <TableCell
+                    onClick={() => setEditableCell(`${sale.id}-weather`)}
+                  >
+                    {editableCell === `${sale.id}-weather` ? (
+                      <input
+                        type="text"
+                        value={sale.weather}
+                        onChange={(e) => {
+                          const newValue = e.target.value;
+                          setSalesRecord((prev) =>
+                            prev.map((item) =>
+                              item.id === sale.id
+                                ? { ...item, weather: newValue }
+                                : item
+                            )
+                          );
+                        }}
+                        onBlur={() =>
+                          handleEdit(sale.id, "weather", sale.weather)
+                        }
+                        autoFocus
+                      />
+                    ) : (
+                      `${sale.weather}`
+                    )}
                   </TableCell>
                   <TableCell>
+                    {/* When clicking on the button, calls deleteInput with the sale's id to remove the record. */}
                     <button onClick={() => deleteInput(sale.id)}>❌</button>
                   </TableCell>
                 </TableRow>
@@ -254,12 +294,14 @@ function SalesTable({ salesRecord, setSalesRecord, deleteInput, editInput }) {
       </TableContainer>
       <br />
 
+      {/* There is a second Table that renders the statistics */}
+      {/* It takes the totals to return the data added up */}
       <TableContainer component={Paper}>
         <Table className="stats">
           <TableHead>
             <TableRow>
               <TableCell>
-                <h3>Statistiche</h3>
+                <h3>Statistics</h3>
               </TableCell>
               <TableCell>Income 💶</TableCell>
               <TableCell>Men 👨🏼</TableCell>

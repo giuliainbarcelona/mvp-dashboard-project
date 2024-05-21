@@ -2,9 +2,10 @@ var express = require("express"); // Import the Express framework.
 var router = express.Router(); // Create a router object using Express.
 const db = require("../model/helper"); // Import the database helper functions.
 const idMustExist = require("../guards/idMustExist"); // Import a middleware (a.k.a guards) to check if an ID exists.
-const allInputsMustExist = require("../guards/allInputsMustExist"); // Import a middleware (a.k.a guards)to check if all required inputs exist.
+const allInputsMustExist = require("../guards/allInputsMustExist"); // Import a middleware (a.k.a guards) to check if all required inputs exist.
 
 /* GET home page. */
+// Query the database to select ALL sales records.
 router.get("/", function (req, res, next) {
   db("SELECT * FROM sales;")
     .then((results) => {
@@ -27,9 +28,6 @@ router.get("/dates", async function (req, res, next) {
     } else if (endDate) {
       query += ` WHERE day <= '${endDate}'`; // Filter data up to the end date
     }
-
-    // console.log(start);
-
     const result = await db(query);
     res.status(200).send(result.data);
   } catch (err) {
@@ -57,10 +55,7 @@ router.put("/:id", idMustExist, async function (req, res, next) {
     if (home !== undefined) updateFields.push(`home = '${home}'`);
     if (weather !== undefined) updateFields.push(`weather = '${weather}'`);
 
-    // await db(`UPDATE sales SET ${updateFields.join(", ")}`);
     await db(`UPDATE sales SET ${updateFields.join(", ")} WHERE id= '${id}'`);
-    // `UPDATE sales SET income=${updateFields.join(", ")} WHERE id= '${id}'`;
-
     const result = await db(`SELECT * FROM sales`);
     console.log(updateFields);
     console.log(id);
@@ -70,11 +65,6 @@ router.put("/:id", idMustExist, async function (req, res, next) {
   }
 });
 
-// // code
-// "UPDATE sales SET  WHERE id= '65'"
-// sqlMessage: "You have an error in your SQL syntax; check the manual that corresponds to your
-// MySQL server version for the right syntax to use near 'WHERE id= '65'' at line 1"
-
 // Adds a new record
 router.post("/", allInputsMustExist, async function (req, res, next) {
   // GUARD 1: to make sure all the data are inserted!
@@ -83,7 +73,6 @@ router.post("/", allInputsMustExist, async function (req, res, next) {
       req.body;
     await db(
       `INSERT INTO sales (day, income, men, women, kids, clothing, sport, home, weather) VALUES ('${day}', ${income}, ${men}, ${women}, ${kids}, ${clothing}, ${sport}, ${home}, '${weather}')`
-      // SELECT CONVERT_TZ('2008-05-15 12:00:00','+00:00','+10:00');
     );
 
     const result = await db(`SELECT * FROM sales;`);
@@ -95,7 +84,7 @@ router.post("/", allInputsMustExist, async function (req, res, next) {
 
 // Deletes a record from the table by date
 router.delete("/:id", idMustExist, async function (req, res, next) {
-  // GUARD 2: we need a guard to check if the day even esists
+  // GUARD 2: we need a guard to check if ID even esists
   try {
     const { id } = req.params;
     await db(`DELETE FROM sales WHERE id = '${id}'`);
@@ -111,4 +100,4 @@ module.exports = router;
 // POST: allows add items daily
 // PUT: allows you to edit wrong information
 // DELETE: allows you to delete inputs
-// GET by ID/DATE: allows you to get records by date
+// GET by ID/DATE: allows you to get records by --

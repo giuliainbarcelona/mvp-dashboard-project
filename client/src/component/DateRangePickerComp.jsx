@@ -67,20 +67,19 @@ const DateRangePickerComp = ({ setSalesRecord }) => {
   // // Renders the date range picker component with input field and filter button.
   return (
     <div className=".calendarWrap">
-      <div className="filterdata-btn">
-        <Button
-          type="button"
-          variant="contained"
-          onClick={() =>
-            fetchData({
-              startDate: `${format(range[0].startDate, "yyyy-MM-dd")}`,
-              endDate: `${format(range[0].endDate, "yyyy-MM-dd")}`,
-            })
-          }
-        >
-          Filter By Date
-        </Button>
-      </div>
+      <Button
+        type="button"
+        variant="contained"
+        className="filterdata-btn"
+        onClick={() =>
+          fetchData({
+            startDate: `${format(range[0].startDate, "yyyy-MM-dd")}`,
+            endDate: `${format(range[0].endDate, "yyyy-MM-dd")}`,
+          })
+        }
+      >
+        Filter By Date
+      </Button>
       <div className="inputBox">
         <input
           value={`${format(range[0].startDate, "dd/MM/yyyy")} to ${format(

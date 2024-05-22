@@ -70,25 +70,15 @@ input.inputBox {
   z-index: 999;
 }
 
-.adddata-btn {
-  position: relative;
-  display: inline-block;
-  margin-right: 200px;
-}
-
 .inputBox {
-  position: relative;
-  display: inline-block;
-  margin-left: 200px;
+  /* display: inline-block; */
+  margin-right: 109px;
+  margin-left: 109px;
 }
 
-.download-btn {
-  position: relative;
-  margin-right: 400px;
+.adddata-btn,
+.download-btn,
+.filterdata-btn {
+  margin-right: 109px;
+  margin-left: 109px;
 }
-
-/* .filterdata-btn {
-  position: relative;
-  display: inline-block;
-  margin-right: 400px;
-} */

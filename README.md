@@ -145,6 +145,8 @@ Frontend runs on http://localhost:5173/, and backend runs on http://localhost:40
 
 ## Demo Video
 
+[![Demo](https://img.youtube.com/vi/i5yc8sU_sls/0.jpg)](https://www.youtube.com/watch?v=i5yc8sU_sls)
+
 ## Database Schema
 
 The sales table contains detailed records of daily sales data, categorized into various segments. Below is a breakdown of its structure:

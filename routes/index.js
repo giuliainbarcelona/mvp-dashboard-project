@@ -16,7 +16,6 @@ router.get("/", function (req, res, next) {
 
 //Get records by date
 router.get("/dates", async function (req, res, next) {
-  console.log(req.query);
   try {
     const { startDate, endDate } = req.query;
     let query = "SELECT * FROM sales";
@@ -57,8 +56,6 @@ router.put("/:id", idMustExist, async function (req, res, next) {
 
     await db(`UPDATE sales SET ${updateFields.join(", ")} WHERE id= '${id}'`);
     const result = await db(`SELECT * FROM sales`);
-    console.log(updateFields);
-    console.log(id);
     res.status(200).send(result.data);
   } catch (err) {
     res.status(500).send(err);

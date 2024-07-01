@@ -96,8 +96,3 @@ router.delete("/:id", idMustExist, async function (req, res, next) {
 });
 
 module.exports = router;
-
-// POST: allows add items daily
-// PUT: allows you to edit wrong information
-// DELETE: allows you to delete inputs
-// GET by ID/DATE: allows you to get records by --

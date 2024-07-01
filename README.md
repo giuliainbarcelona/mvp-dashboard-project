@@ -1,99 +1,229 @@
-### 1. Project Title
+<p style="text-align: center; height: 50px;">
+  <img src="./client/public/vite.svg" alt="icon" style="height: 40px;" />
+</p>
 
-Dashboard Data Management System
+<h1 style="text-align: center;">Dashboard Data Management System</h1>
 
-### 2. Description
+<p style="text-align: center;">By Giulia Cellerino</p>
 
-This project aims to provide a user-friendly interface for inputting and managing various types of data and generating insightful dashboards for analysis and decision-making.
+## Table of Contents
 
-### 3. Features
+- [Introduction](#introduction)
+- [Motivation](#motivation)
+- [Features & Pages](#features--pages)
+- [Tools Used](#tools-used)
+- [Getting Started](#getting-started)
+- [Demo Video](#demo-video)
+- [Database Schema](#database-schema)
+- [Routes](#routes)
+- [Future Features](#future-features)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
-- User-friendly interface for inputting data.
-- Database framework for organizing different categories of data.
-- Dashboard generation for comparing and showcasing data.
-- Customizable downloading options.
+## Introduction
 
-### 5. Installation
+My app is designed to provide a comprehensive overview of sales data, enabling efficient data management and insightful analysis.
 
-After cloning the repo into your computer, you will need to..
-cd into the folder
+## Motivation
 
-- `npm start` in the mvp folder --> This will open the "backend terminal"
-- Open another terminal, `cd client` and `npm run dev` --> This will open the "frontend terminal"
-- For mySQL `mysql -u root -p`, it will ask for your password
+The inception of this project began with a personal challenge: assisting my family's business, [Figini Varese](https://www.figinicalzature.com/la-storia/). As a small business, we faced significant difficulties in managing and analyzing our sales data effectively. In today's data-driven world, many small businesses encounter similar struggles, finding it overwhelming to keep track of and interpret their data.
 
-### 6. Usage
+Recognizing this widespread issue, I was motivated to develop a tool that not only addresses our family's needs but also provides a valuable resource for other small businesses. The goal of this project is to empower small business owners by simplifying the process of data management and analysis, thereby enabling them to make informed, data-driven decisions that can drive their business success.
 
-Interface navigation
+## Features & Pages
 
-The dashboard presents three main buttons for the user.
+Below are the key features and functionalities of the application:
 
-- The "most important" one is the "Add Data" - This opens a dialog with empty fields that the user needs to fill out.
-  The dialog can be quitted by pressing Esc or by clicking outside on the page.
-- The "Download" allows the user to download the current view of the dashboard.
-- The "Filter by Date" allows the user to visualise the data by personalized date ranges that are to be selected in the data range picked component.
+**Data Input and Management**
 
-Furthermore, inside the table there is a "Delete" button that allows to user to permanelty delete the data from the database.
-Every cell in the table is editable and the databased gets updated once the value is changed.
+- **Add Data**: Users can input daily sales data through a form displayed in a dialog popup. The form includes fields for day, income, demographic breakdown (men, women, kids), and category-specific sales (clothing, sport, home). Upon submission, the data is sent to the backend for storage and updates the displayed sales records.
+- **Edit Data**: Existing sales records can be edited directly from the displayed table.
+- **Delete Data**: Users can delete specific sales records from the database. This action updates the displayed records after confirmation.
 
-### 7. Technologies Used
+**Data Visualization and Export**
 
-This project is built with React for its front end component, mySQL for its database, and Express and NodeJS for the beckend.
+- **Sales Table**: A comprehensive table displays all sales records, including daily data and segmented sales figures. It provides an overview of performance metrics essential for business analysis.
+- **Download as PDF**: Users can generate and download the entire sales table as a PDF document. This feature is facilitated by the PDFDownloadLink component, ensuring easy access to summarized sales data for offline use.
 
-I have used a couple of libraries to help me with the styling:
+**Date Range Selection**
 
-- DateRangePickerComp: https://hypeserver.github.io/react-date-range/#calendar
-  date-fns/format
-  And coded along this tutorial: https://www.youtube.com/watch?v=5OEOLDBow_0
-- PDF download component: https://react-pdf.org/
-- Date formatting: date-fns/format
+- **Date Range Picker**: Integration with the DateRangePickerComp component allows users to filter sales data based on selected date ranges. This feature enhances data exploration and trend analysis by focusing on specific time periods.
 
-The main library I used is (https://mui.com/), which I have used to style:
+**Error Handling and User Feedback**
 
-- Table and all its components
-- Button
-- Dialog
+- **Error Handling**: The application includes error handling mechanisms for incomplete form submissions. Users receive feedback prompts to fill out all required fields before data submission.
 
-### 8. Architecture
+## Tools Used
 
-The architecture of the project is simple, here you will find a breakdown of how the front end communicates with the backend and database.
-There are five main routes that connectes the two "ends" of the project.
-The first one is a GET route that gets all the data from the database. This is the route that allows the user to see all the "salesRecord" in the dashboard at all times.
-The second one is still a GET function that gets the data from the database "filtering" by date, this function connects to the frontend side of the DataPicker component.
-The third one is a PUT function which gets on the stage when the user edits the "salesRecord", it makes sure that the data are saved into the database.
-The fourth one is (maybe) the most important, which is the POST method, the function that allows the user's input to be saved into the db. This one gets triggered when the user presses the add data button.
-And the last one is the DELETE function, which deletes sales records based on their ID, and gets triggered when the user presses the delete button.
+- **VS Code** - Source code editor
+- **GitHub** - Version control platform
+- **Git** - Version control system
+- **Postman** - API development and testing tool
+- **MySQL** - Relational database management system
+- **HTML** - Markup language for creating web pages
+- **CSS** - Stylesheet language for styling web pages
+- **JavaScript (ES6+)** - Programming language for web development
+- **React** - JavaScript library for building user interfaces
+- **Material-UI** - React component library implementing Google's Material Design
+- **Mui Grid** - Part of Material-UI for creating responsive layout grids
+- **Node.js** - JavaScript runtime environment
+- **Express** - Web application framework for Node.js
+- **DrawSQL** - Tool for creating database diagrams
+- **FullCalendar.io** - JavaScript calendar library for displaying events
+- **Date Range Picker** - Component for selecting date ranges in the application
+- **PDFDownloadLink** - Component for generating and downloading PDFs
+- **react-pdf/renderer** - Library for generating PDF documents in React applications
+- **react-date-range** - Component for picking dates and date ranges
 
-### 9 . Roadmap
+## Getting Started
 
-Future development plans:
+### Prerequisites
 
-- The weather section of the table will not be inputted manually but it will use an API to fetch the weather in the particular day. It will save this information.
-- A new section for data visualization. The idea is to create different graphical ways to compare and visualize data. This will be a pie chart and a graph.
-  Hint hint: https://react-chartjs-2.js.org/
-- Improving the graphical layout of the PDF document.
+Before you begin, ensure you have the following installed on your local machine:
 
-### MySQL Database Framework
+- [Node.js](https://nodejs.org/) - JavaScript runtime environment
+- [npm](https://www.npmjs.com/) - Package managers for Node.js
+- [MySQL](https://www.mysql.com/) - Relational database management system
 
-This section provides a clear overview of the "sales" table structure, inclusing: column names, data types and descriptions.
-I have designed the MySQL database to efficiently manage and organize various categories of data. Below is the structure of the `Sales` table:
+### Installation
 
-#### Sales Table
+0. Clone the repository on your local machine and open it.
 
-| Column   | Type          | Description                            |
-| -------- | ------------- | -------------------------------------- |
-| id       | INT UNSIGNED  | Unique identifier for each record      |
-| day      | DATE          | Date of the record data entry \*       |
-| income   | DECIMAL(8, 2) | Total income generated on the day      |
-| men      | BIGINT        | Sales related to men shoewear \*\*     |
-| women    | BIGINT        | Sales related to women shoewear \*\*   |
-| kids     | BIGINT        | Sales related to kids shoewear \*\*    |
-| clothing | BIGINT        | Sales related to clothing \*\*         |
-| sport    | BIGINT        | Sales related to sports equipment \*\* |
-| home     | BIGINT        | Sales related to home products \*\*    |
-| weather  | VARCHAR(255)  | Weather condition on the day           |
+```bash
+git clone "githublink"
+```
 
-\* The initial date is given in the american format: YYYY-MM-DD
+1. Create a .env file in the root project folder and add the following configuration:
 
-\*\* Men, women, kids, clothing, sport, home are the categories.
-Their value is expressed in numbers.
+```
+DB_HOST=localhost
+DB_USER=root
+DB_NAME=sales
+DB_PASS=yourpassword
+```
+
+2. Open a terminal and run MySQL to start the database:
+
+```bash
+mysql -u root -p
+```
+
+3. Create database:
+
+```sql
+CREATE DATABASE sales;
+```
+
+4. Install NPM packages for both the server and client:
+
+```bash
+npm install
+cd client
+npm install
+```
+
+5. Run migrations to populate the database with initial information:
+
+```bash
+npm run migrate
+```
+
+6. Start the backend server:
+
+```bash
+npm start
+```
+
+7. Navigate to the client directory and start the frontend development server:
+
+```bash
+cd client
+npm run dev
+```
+
+Frontend runs on http://localhost:5173/, and backend runs on http://localhost:4000.
+
+## Demo Video
+
+## Database Schema
+
+The sales table contains detailed records of daily sales data, categorized into various segments. Below is a breakdown of its structure:
+
+### Columns and Descriptions
+
+| Column   | Type          | Description                                    |
+| -------- | ------------- | ---------------------------------------------- |
+| id       | INT UNSIGNED  | Unique identifier for each sales record.       |
+| day      | DATE          | Date of the sales record in YYYY-MM-DD format. |
+| income   | DECIMAL(8, 2) | Total income generated on the day.             |
+| men      | BIGINT        | Sales related to men's shoewear.               |
+| women    | BIGINT        | Sales related to women's shoewear.             |
+| kids     | BIGINT        | Sales related to kids' shoewear.               |
+| clothing | BIGINT        | Sales related to clothing items.               |
+| sport    | BIGINT        | Sales related to sports equipment.             |
+| home     | BIGINT        | Sales related to home products.                |
+| weather  | VARCHAR(255)  | Weather condition on the day of sales.         |
+
+### Notes
+
+- **day**: The date is stored in the American format (YYYY-MM-DD).
+- **men, women, kids, clothing, sport, home**: These columns represent sales figures in respective categories, recorded as numerical values.
+
+### Example Queries
+
+Here are sample SQL queries to interact with the sales table:
+
+1. Retrieve all sales records for a specific date range:
+
+```sql
+SELECT * FROM sales WHERE day BETWEEN 'start_date' AND 'end_date';
+```
+
+2. Get sales breakdown by category for a particular day:
+
+```sql
+SELECT day, men, women, kids, clothing, sport, home FROM sales WHERE day = 'specific_date';
+```
+
+The sales table serves as a crucial repository for tracking daily sales performance across various product categories, enabling informed business decisions based on historical data.
+
+## Routes
+
+- **GET /api/**
+
+  - Retrieves all sales records from the database.
+
+- **GET /api/dates**
+
+  - Retrieves sales records filtered by date range.
+
+- **PUT /api/:id**
+
+  - Updates a specific sales record identified by ID.
+
+- **POST /api/**
+
+  - Adds a new sales record to the database.
+
+- **DELETE /api/:id**
+  - Deletes a specific sales record identified by ID.
+
+## Future Features
+
+There are plenty of ideas to make this app bigger and better, here below a snippet:
+
+- **Enhanced Data Visualization:** Integrate graph and pie chart options for sales trends.
+- **Weather Integration:** Fetch weather data from an API based on store location.
+- **User Authentication:** Secure user access with authentication mechanisms.
+- **Advanced Analytics:** Implement tools for deeper sales performance insights.
+- **Responsive Design:** Optimize the dashboard for seamless mobile and desktop use.
+
+## Contact
+
+- Giulia Cellerino - giulia.cellerino@icloud.com
+
+## Acknowledgements
+
+- Teacher [Germinal Camps](https://es.linkedin.com/in/germinal-camps)
+- TA [Zoe Laventhol](https://www.linkedin.com/in/zoe-laventhol)
+- TA [Pia Prozesky](https://www.linkedin.com/in/pia-prozesky)

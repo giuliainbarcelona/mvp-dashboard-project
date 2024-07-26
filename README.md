@@ -69,7 +69,6 @@ Below are the key features and functionalities of the application:
 - **Node.js** - JavaScript runtime environment
 - **Express** - Web application framework for Node.js
 - **DrawSQL** - Tool for creating database diagrams
-- **FullCalendar.io** - JavaScript calendar library for displaying events
 - **Date Range Picker** - Component for selecting date ranges in the application
 - **PDFDownloadLink** - Component for generating and downloading PDFs
 - **react-pdf/renderer** - Library for generating PDF documents in React applications
